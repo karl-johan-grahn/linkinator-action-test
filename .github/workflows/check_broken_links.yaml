@@ -22,5 +22,5 @@ jobs:
       - if: ${{ steps.link_check.outcome }} == "failure"
         name: Display broken links
         run: |
-          ${{ join(fromJson(steps.link_check.outputs.results).links.*.url, '\n') }}
-          ${{ join(fromJson(steps.link_check.outputs.results).links.*.status, '\n') }}
+          echo ${{ join(fromJson(steps.link_check.outputs.results).links.*.url, '\n') }}
+          echo ${{ join(fromJson(steps.link_check.outputs.results).links.*.status, '\n') }}
