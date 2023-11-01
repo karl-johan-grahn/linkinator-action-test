@@ -1,0 +1,1 @@
+# linkinator-action-test
