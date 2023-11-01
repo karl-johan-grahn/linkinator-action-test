@@ -1,0 +1,26 @@
+name: Link checking
+
+on:
+  workflow_dispatch:
+
+jobs:
+  linkinator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check links
+        id: link_check
+        continue-on-error: true
+        uses: JustinBeckwith/linkinator-action@v1
+        with:
+          paths: https://docs.stakater.com/saap2/index.html
+          config: ${{ github.workspace }}/linkinator.config.json
+          verbosity: ERROR
+      - if: ${{ steps.link_check.outcome }} == "failure"
+        name: Display broken links
+        run: |
+          ${{ join(fromJson(steps.link_check.outputs.results).links.*.url, '\n') }}
+          ${{ join(fromJson(steps.link_check.outputs.results).links.*.status, '\n') }}
