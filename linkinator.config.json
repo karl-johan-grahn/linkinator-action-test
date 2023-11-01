@@ -1,3 +1,4 @@
 {
-    "format": "json"
+    "format": "json",
+    "verbosity": "error"
 }
